@@ -11,16 +11,16 @@ const postModel = require('./models/post');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const dotenv = require('dotenv');
 app.set('view engine','ejs');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-
 app.get('/', (req,res) =>{
     res.render('index');
 });
-
+dotenv.config();
+port =  process.env.PORT || 3000;
 app.get('/login', (req,res) =>{
     res.render('login');
 });
@@ -124,4 +124,5 @@ function isLoggedIn (req,res,next){
     }
 }
 
-app.listen(3000);
+app.listen(`${port}`, () =>{    
+    console.log(`Server started on http://localhost:${port}`);      });
